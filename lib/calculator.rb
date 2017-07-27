@@ -18,13 +18,17 @@ class Calculator
   end
 
   def evaluate
-    expression = []
-    operands.length.times do |i|
-      expression << operands[i]
-      expression << operators[i]
+    if valid_expression?
+      expression = []
+      operands.length.times do |i|
+        expression << operands[i]
+        expression << operators[i]
+      end
+      expression.compact!
+      calc(expression).map{ |e| e.to_f }.inject(:+)
+    else
+      'Invalid Expression'
     end
-    expression.compact!
-    calc(expression).map{ |e| e.to_f }.inject(:+)
   end
 
   def calc(expression)
